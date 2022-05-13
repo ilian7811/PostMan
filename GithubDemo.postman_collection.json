@@ -1,0 +1,335 @@
+{
+	"info": {
+		"_postman_id": "2509eeda-545d-4ebe-9cc2-ce0904f12e6e",
+		"name": "GithubDemo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET",
+			"item": [
+				{
+					"name": "New Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Check status code\", function() {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"})\r",
+									"pm.test(\"Check status\", function() {\r",
+									"    pm.expect(pm.response.status).to.equal('OK');\r",
+									"})\r",
+									"pm.test(\"Check status code\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"})\r",
+									"pm.test(\"Check status code\", () => {\r",
+									"    pm.expect(pm.response.code, \"EXPECT STATUS CODE\").to.equal(201);\r",
+									"})\r",
+									"pm.test(\"Check status code\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(202);\r",
+									"})\r",
+									"pm.test(\"Check body lenght\", function(){\r",
+									"    var body = pm.response.json();\r",
+									"    console.log(body);\r",
+									"})\r",
+									"pm.test(\"Check body lenght\", function(){\r",
+									"    var body = pm.response.json();\r",
+									"    pm.expect(body.length, \"Body Length propery\").to.equal(5);\r",
+									"})\r",
+									"pm.test(\"Check body lenght\", function(){\r",
+									"    var body = pm.response.json();\r",
+									"    console.log(body.url);\r",
+									"})\r",
+									"pm.test(\"Check body URL\", function(){\r",
+									"    var body = pm.response.json();\r",
+									"    pm.expect(body.url).to.equal(\"https://api.github.com/repos/ilian7811/PostMan/issues/3\");\r",
+									"})\r",
+									"pm.test(\"Check body ID\", function(){\r",
+									"    var body = pm.response.json();\r",
+									"    pm.expect(body.id, \"id property\").to.equal(1235010455)\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.github.com/repos/{{user}}/{{repo}}/issues/3",
+							"protocol": "https",
+							"host": [
+								"api",
+								"github",
+								"com"
+							],
+							"path": [
+								"repos",
+								"{{user}}",
+								"{{repo}}",
+								"issues",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllIssue",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Check status code\", function() {\r",
+									"    var body = pm.response.json();\r",
+									"    console.log(body[0]);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Check body title\", function(){\r",
+									"    var body = pm.response.json();\r",
+									"    pm.expect(body[0].title).to.include('Postman');\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.github.com/repos/{{user}}/{{repo}}/issues",
+							"protocol": "https",
+							"host": [
+								"api",
+								"github",
+								"com"
+							],
+							"path": [
+								"repos",
+								"{{user}}",
+								"{{repo}}",
+								"issues"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "POST",
+			"item": [
+				{
+					"name": "PostRequestNewIssue",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Check status code\", function() {\r",
+									"    pm.expect(pm.response.code).to.equal(201);\r",
+									"})\r",
+									"pm.test(\"Check status\", function() {\r",
+									"    pm.expect(pm.response.status).to.equal('Created');\r",
+									"})\r",
+									"pm.test(\"Check status code\", () => {\r",
+									"    pm.expect(pm.response.code, \"EXPECT STATUS CODE\").to.equal(201);\r",
+									"})\r",
+									"pm.test(\"Check body lenght\", function(){\r",
+									"    var body = pm.response.json();\r",
+									"    console.log(body);\r",
+									"})\r",
+									"pm.test(\"Check body lenght\", function(){\r",
+									"    var body = pm.response.json();\r",
+									"    console.log(body.url);\r",
+									"})\r",
+									"pm.test(\"Check body URL\", function(){\r",
+									"    var body = pm.response.json();\r",
+									"    var number = body.number;\r",
+									"\r",
+									"    var url = \"https://api.github.com/repos/ilian7811/PostMan/issues/\" + number;\r",
+									"    \r",
+									"    pm.expect(body.url).to.equal(url);\r",
+									"})\r",
+									"pm.test(\"Check body ID\", function(){\r",
+									"    var body = pm.response.json();\r",
+									"    pm.expect(body.id, \"id property\").to.equal(1235126618)\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\":\"First Issue from Postman\",\"body\":\"some issue\"}"
+						},
+						"url": {
+							"raw": "https://api.github.com/repos/{{user}}/{{repo}}/issues",
+							"protocol": "https",
+							"host": [
+								"api",
+								"github",
+								"com"
+							],
+							"path": [
+								"repos",
+								"{{user}}",
+								"{{repo}}",
+								"issues"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UPDATE",
+			"item": [
+				{
+					"name": "Update issue",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\":\"First Issue from Postman\",\"body\":\"updated issue\"}"
+						},
+						"url": {
+							"raw": "https://api.github.com/repos/{{user}}/{{repo}}/issues/3",
+							"protocol": "https",
+							"host": [
+								"api",
+								"github",
+								"com"
+							],
+							"path": [
+								"repos",
+								"{{user}}",
+								"{{repo}}",
+								"issues",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DELETE",
+			"item": [
+				{
+					"name": "PostRequestNewIssue Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\":\"First Issue from Postman\",\"body\":\"some issue\"}"
+						},
+						"url": {
+							"raw": "https://api.github.com/repos/{{user}}/{{repo}}/issues/1",
+							"protocol": "https",
+							"host": [
+								"api",
+								"github",
+								"com"
+							],
+							"path": [
+								"repos",
+								"{{user}}",
+								"{{repo}}",
+								"issues",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
